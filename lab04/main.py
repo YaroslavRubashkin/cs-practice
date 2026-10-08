@@ -8,7 +8,7 @@ def main():
    
     for line in lines:
      cleaned_line = line.strip()
-        if not cleaned_line:
+     if not cleaned_line:
            continue
         try:
              record = parse_record(cleaned_line)
