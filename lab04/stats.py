@@ -9,7 +9,8 @@ def parse_record(line: str) -> dict:
         temp = float(temp_str)
     except ValueError:
         raise ValueError("Температура должна быть числом")
-    return {"city": city.strip(), "temp": temp, "date": date.strip()}
+    # Ключ изменен на "temperature" под требования автотеста
+    return {"city": city.strip(), "temperature": temp, "date": date.strip()}
 
 def read_valid(lines: list[str]) -> list[dict]:
     valid_records = []
@@ -28,7 +29,8 @@ def average_by_city(records: list[dict]) -> dict:
     city_totals, city_counts = {}, {}
     for r in records:
         city = r["city"]
-        city_totals[city] = city_totals.get(city, 0.0) + r["temp"]
+        # Используем правильный ключ "temperature"
+        city_totals[city] = city_totals.get(city, 0.0) + r["temperature"]
         city_counts[city] = city_counts.get(city, 0) + 1
     return {city: round(city_totals[city] / city_counts[city], 1) for city in city_totals}
 
@@ -46,4 +48,3 @@ def warmest_city(records: list[dict]) -> str:
             elif avg_temp == averages[best_city] and city < best_city:
                 best_city = city
     return best_city
-
