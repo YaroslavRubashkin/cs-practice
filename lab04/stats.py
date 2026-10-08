@@ -46,3 +46,5 @@ def warmest_city(records: list[dict]) -> str:
             elif avg_temp == averages[best_city] and city < best_city:
                 best_city = city
     return best_city
+
+
