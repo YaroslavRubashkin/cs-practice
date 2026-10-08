@@ -25,4 +25,5 @@ def main():
     print(error_count)
     print(f"{warmest_temp:.1f}")
 
-if __name__ == "__m
+if __name__ == "__main__":
+    main()
