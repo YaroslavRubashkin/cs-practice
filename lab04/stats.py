@@ -18,7 +18,7 @@ def read_valid(lines: list[str]) -> list[dict]:
         cleaned_line = line.strip()
         if not cleaned_line:
              continue
-         try:
+        try:
            record = parse_record(cleaned_line)
            valid_records.append(record)
         except ValueError:
