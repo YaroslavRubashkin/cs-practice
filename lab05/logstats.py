@@ -9,12 +9,20 @@ def parse_event(line: str) -> dict:
         raise ValueError("Некорректный формат строки")
         
     time = parts[0]
-    level = parts[1]
+    raw_level = parts[1]
     
-    valid_levels = {"DEBUG", "INFO", "WARNING", "ERROR"}
-    if level not in valid_levels:
+    # Словарь сопоставления коротких и полных уровней логирования
+    level_mapping = {
+        "DEBUG": "DEBUG", "D": "DEBUG",
+        "INFO": "INFO", "I": "INFO",
+        "WARNING": "WARNING", "W": "WARNING",
+        "ERROR": "ERROR", "E": "ERROR"
+    }
+    
+    if raw_level not in level_mapping:
         raise ValueError("Неизвестный уровень логирования")
         
+    level = level_mapping[raw_level]
     message = parts[2] if len(parts) == 3 else ""
         
     return {"time": time, "level": level, "message": message}
@@ -73,6 +81,5 @@ def format_report(counts: dict, errors: list) -> str:
             lines.append(f"- {msg} — {count}")
             
     return "\n".join(lines) + "\n"
-
 
 
