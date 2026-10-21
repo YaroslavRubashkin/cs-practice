@@ -9,11 +9,13 @@ def parse_event(line: str) -> dict:
         
     time = parts[0]
     level = parts[1]
-    message = parts[2] if len(parts) == 3 else ""
     
+    # Проверяем уровень логирования СРАЗУ, до разбора сообщения
     valid_levels = {"DEBUG", "INFO", "WARNING", "ERROR"}
     if level not in valid_levels:
         raise ValueError("Неизвестный уровень логирования")
+        
+    message = parts[2] if len(parts) == 3 else ""
         
     return {"time": time, "level": level, "message": message}
 
@@ -50,7 +52,7 @@ def top_errors(lines, n: int) -> list:
         except ValueError:
             continue
             
-    
+    # Сортируем: сначала по убыванию количества (-x[1]), затем по алфавиту текста (x[0])
     sorted_errors = sorted(error_counts.items(), key=lambda x: (-x[1], x[0]))
     
     return [list(item) for item in sorted_errors[:n]]
@@ -72,4 +74,5 @@ def format_report(counts: dict, errors: list) -> str:
             lines.append(f"- {msg} — {count}")
             
     return "\n".join(lines) + "\n"
+
 
