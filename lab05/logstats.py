@@ -4,10 +4,13 @@ def parse_event(line: str) -> dict:
         raise ValueError("Пустая строка")
         
     parts = line.split(" ", 2)
-    if len(parts) < 3:
+    if len(parts) < 2:
         raise ValueError("Некорректный формат строки")
         
-    time, level, message = parts
+    time = parts[0]
+    level = parts[1]
+    message = parts[2] if len(parts) == 3 else ""
+    
     valid_levels = {"DEBUG", "INFO", "WARNING", "ERROR"}
     if level not in valid_levels:
         raise ValueError("Неизвестный уровень логирования")
@@ -16,9 +19,7 @@ def parse_event(line: str) -> dict:
 
 
 def count_levels(lines) -> dict:
-    # Инициализируем только те уровни, которые реально встретились или базовые
     counts = {}
-    
     for line in lines:
         line = line.strip()
         if not line:
@@ -36,7 +37,6 @@ def count_levels(lines) -> dict:
 
 def top_errors(lines, n: int) -> list:
     error_counts = {}
-    
     for line in lines:
         line = line.strip()
         if not line:
@@ -50,7 +50,7 @@ def top_errors(lines, n: int) -> list:
         except ValueError:
             continue
             
-    # ИСПРАВЛЕНО: сортируем по количеству (индекс 1) и по алфавиту (индекс 0)
+    # Сортируем: сначала по убыванию количества (-x[1]), затем по алфавиту (x[0])
     sorted_errors = sorted(error_counts.items(), key=lambda x: (-x[1], x[0]))
     
     return [list(item) for item in sorted_errors[:n]]
@@ -69,6 +69,7 @@ def format_report(counts: dict, errors: list) -> str:
         lines.append("Ошибок не обнаружено.")
     else:
         for msg, count in errors:
-            lines.append(f" - {msg} — {count}")
+            lines.append(f"- {msg} — {count}")
             
     return "\n".join(lines) + "\n"
+
