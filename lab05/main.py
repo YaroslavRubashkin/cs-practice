@@ -3,6 +3,9 @@ from logstats import count_levels, top_errors, format_report
 
 def main():
     filename = sys.stdin.readline().strip()
+    if not filename:
+        return
+        
     try:
         with open(filename, "r", encoding="utf-8") as f:
             lines = f.readlines()
@@ -13,8 +16,8 @@ def main():
     counts = count_levels(lines)
     
     print(total_lines)
-    print(counts["ERROR"])
-    print(counts["BROKEN"])
+    print(counts.get("ERROR", 0))
+    print(counts.get("BROKEN", 0))
 
     errors = top_errors(lines, 3)
     report_text = format_report(counts, errors)
@@ -24,3 +27,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
