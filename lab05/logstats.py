@@ -50,7 +50,7 @@ def top_errors(lines, n: int) -> list:
         except ValueError:
             continue
             
-    # Сортируем: сначала по убыванию количества (-x[1]), затем по алфавиту (x[0])
+    
     sorted_errors = sorted(error_counts.items(), key=lambda x: (-x[1], x[0]))
     
     return [list(item) for item in sorted_errors[:n]]
