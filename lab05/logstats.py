@@ -11,7 +11,7 @@ def parse_event(line: str) -> dict:
     time = parts[0]
     raw_level = parts[1]
     
-    # Словарь сопоставления коротких и полных уровней логирования
+    # Карта соответствия коротких и полных названий уровней
     level_mapping = {
         "DEBUG": "DEBUG", "D": "DEBUG",
         "INFO": "INFO", "I": "INFO",
@@ -81,5 +81,3 @@ def format_report(counts: dict, errors: list) -> str:
             lines.append(f"- {msg} — {count}")
             
     return "\n".join(lines) + "\n"
-
-
