@@ -8,6 +8,7 @@ def parse_event(line: str) -> dict:
     if len(parts) < 2:
         raise ValueError("Некорректный формат строки")
         
+    # Используем извлечение, чтобы избежать проблем с индексами в чате
     time = parts[0]
     level = parts[1]
     
@@ -73,7 +74,4 @@ def format_report(counts: dict, errors: list) -> str:
             lines.append(f"- {msg} — {count}")
             
     return "\n".join(lines) + "\n"
-
-
-
 
