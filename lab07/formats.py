@@ -112,3 +112,5 @@ def merge_by_key(rows: list[dict], extra: dict, key: str) -> list[dict]:
 def records_to_json(records: list[dict]) -> str:
     # ensure_ascii=False сохраняет кириллицу как есть, indent=2 делает отступ в 2 пробела, sort_keys=True сортирует ключи
     return json.dumps(records, ensure_ascii=False, indent=2, sort_keys=True)
+
+
