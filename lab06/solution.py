@@ -3,7 +3,6 @@ def count_by_extension(paths: list[str]) -> dict[str, int]:
     for path in paths:
         filename = path.split('/')[-1]
         
-        # Обработка файлов без расширения или скрытых типа .gitig
         if filename.startswith('.') and filename.count('.') == 1:
             ext = ""
         elif '.' in filename:
@@ -18,16 +17,16 @@ def count_by_extension(paths: list[str]) -> dict[str, int]:
 def deepest_path(paths: list[str]) -> str:
     if not paths:
         return ""
-    # Сортируем по вложенности и алфавиту
+    # Сортируем по вложенности (по убыванию) и по алфавиту
     sorted_paths = sorted(paths, key=lambda p: (-p.count('/'), p))
-    return sorted_paths
+    # Возвращаем ТОЛЬКО первый (самый глубокий) элемент строки
+    return sorted_paths[0]
 
 
 def human_size(n_bytes: int) -> str:
     if n_bytes == 0:
         return "0 Б"
         
-    # Все единицы измерения теперь строго заглавными буквами
     units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ']
     size = float(n_bytes)
     unit_index = 0
