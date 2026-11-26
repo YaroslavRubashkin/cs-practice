@@ -24,3 +24,16 @@ def change_vector(values: list[float]) -> list[float]:
     arr[2:5] = 99
     arr[::2] = -1
     return arr.tolist()
+
+
+def cap_above(values: list[float], limit: float) -> list[float]:
+    """Заменяет все значения больше limit на limit одной маской."""
+    arr = np.asarray(values, dtype=float)
+    arr[arr > limit] = limit
+    return arr.tolist()
+
+
+def celsius_to_fahrenheit(values: list[float]) -> list[float]:
+    """Переводит весь вектор из Цельсия в Фаренгейты без цикла."""
+    arr = np.asarray(values, dtype=float)
+    return (arr * 9 / 5 + 32).tolist()
